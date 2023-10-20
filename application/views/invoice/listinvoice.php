@@ -197,9 +197,9 @@
                                                         <td><?= $row->invoice_number ?></td>
                                                         <td><?= $row->date ?></td>
                                                         <td><?php if($row->invoice_status==1){ echo 'Save';}else{echo 'Save As Draft';}  ?></td>
-                                                        <td class="text-center">                                                        <?php if($row->payment_status==1){ ?>
+                                                        <td class="text-center">
                                                         <a href="<?php echo base_url('manage-transaction');?>?id=<?php echo base64_encode($row->id);?>"><span class="fa fa-credit-card"></span>  </a>
-                                                        <?php }?>
+                                                     
                                                         </td>
                                                         <td> 
                                                         <a href="<?php echo base_url('detail-invoice');?>?id=<?php echo base64_encode($row->id);?>"><span class="fa fa-eye text-success"></span>  </a>

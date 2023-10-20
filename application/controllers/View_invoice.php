@@ -263,7 +263,7 @@ class View_invoice extends CI_Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
         $headers = array();
         $headers[] = 'Accept: application/json';
-        $headers[] = 'Api-Key: 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';
+        $headers[] = 'Api-Key: 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';
         $headers[] = 'Content-Type: application/json';
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         $result = curl_exec($ch);
@@ -321,6 +321,7 @@ class View_invoice extends CI_Controller
 
     public function viewinvoice()
     {   
+        echo 45565; die;
         $data['title'] =  "View Invoice";
         $data['active4'] =  "Active";
         $data['invoice'] = $this->Invoice_model->getInvoice(base64_decode($this->input->get('id')));
