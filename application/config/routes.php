@@ -314,3 +314,6 @@ $route['email-setup/all-leads'] = "backend/email_setup/all_leads";
 $route['email-setup/lead-email-history'] = "backend/email_setup/lead_email_history";
 $route['user_management/user-login-activity'] = 'User_management/user_login_activity';
 $route['user_management/user-cookie-logout'] = 'User_management/user_cookie_logout';
+$route['invoice-reminder'] = 'invoice/invoice_reminder';
+
+

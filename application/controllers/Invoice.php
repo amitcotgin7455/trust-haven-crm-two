@@ -10,6 +10,7 @@ class Invoice extends CI_Controller
 
         $this->load->library('auth');
         $this->load->model('Invoice_model');
+        $this->load->model('Payment_model');
         $data['user_detail'] = $this->auth->user_info();
 
         if($data['user_detail']->role_id == 2){
@@ -526,7 +527,8 @@ class Invoice extends CI_Controller
         $data['getnameinvoice'] = $this->Invoice_model->getInvoiceCustNAme($get_firstname_invoice);
         $data['getiteminvoice'] = $this->Invoice_model->getInvoice_item($data['invoice'][0]->id);
         $data['sub_total_first_name'] = $this->Invoice_model->getInvoice_sub_amount($data['invoice'][0]->id);
-      
+        $data['total_recieved_amt'] = $this->Invoice_model->InvoiceRecievedAmt(base64_decode($this->input->get('id')));
+        $data['balance_amt'] = $data['set_total_due_amount']-$data['total_recieved_amt'];
         $this->load->view('include/header', $data);
         $this->load->view('invoice/detailinvoice', $data);
         $this->load->view('include/footer',$data);
@@ -675,7 +677,7 @@ class Invoice extends CI_Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
         $headers = array();
         $headers[] = 'Accept: application/json';
-        $headers[] = 'Api-Key: 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';
+        $headers[] = 'Api-Key: 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';
         $headers[] = 'Content-Type: application/json';
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         $result = curl_exec($ch);
@@ -723,6 +725,7 @@ class Invoice extends CI_Controller
             'margin_bottom' => 0,
         ]);
         $mpdf->WriteHTML($html);
+        echo $html; die;
         // $mpdf->Output();
         // die;
         $mpdf->Output(FCPATH . 'file/' . $data['invoice'][0]->invoice_number . '.pdf', 'F');
@@ -789,6 +792,14 @@ class Invoice extends CI_Controller
         } 
         else
         {
+            $data['invoice'] = $this->Invoice_model->getInvoice($invoice_id);
+            $get_firstname_invoice = $data['invoice'][0]->first_name;
+            $get_total_due_amount = $this->Invoice_model->gettotaldueamount($invoice_id);
+            
+            $data['getnameinvoice'] = $this->Invoice_model->getInvoiceCustNAme($get_firstname_invoice);
+            $data['set_total_due_amount'] = $get_total_due_amount[0]->amount + $get_total_due_amount[0]->other_charges + $get_total_due_amount[0]->taxable-$get_total_due_amount[0]->discount_amount;
+            $data['total_recieved_amt'] = $this->Invoice_model->InvoiceRecievedAmt($invoice_id);
+           
             $payment_id = $this->input->post('payment_id');
             $amount = $this->input->post('amount');
             $bank_charges = $this->input->post('bank_charges');
@@ -797,7 +808,7 @@ class Invoice extends CI_Controller
             $payment_mode = $this->input->post('payment_mode');
             $payment_date = $this->input->post('payment_date');
             $created_at   = date('Y-m-d H:i:s');
-            $data = array(
+            $transaction_record = array(
                 'invoice_id'   => $invoice_id,
                 'payment_id'   => $payment_id,
                 'amount'       => $amount,
@@ -808,10 +819,37 @@ class Invoice extends CI_Controller
                 'payment_date' => $payment_date,
                 'created_at'   => $created_at
             );
-            if($this->Invoice_model->addPaymentRecord($data))
+            
+            $total_recieved_amount = $data['total_recieved_amt'] + $amount;
+            
+            if($payment_id==1 && $amount==($data['set_total_due_amount'].'.00'))
+                {
+                    $payment_type = 1;
+                }
+                else
+                {
+                    $payment_type = 2;
+                }
+            if($this->Invoice_model->addPaymentRecord($transaction_record))
             {
+                $customer_email = $data['getnameinvoice'][0]->email;
+                $customer_name = $this->input->post('customer_name');
+                $detail = array(
+                    'amount' => $amount,
+                    'invoice_number' => $data['invoice'][0]->invoice_number,
+                    'payment_date' => $payment_date,
+                    'invoice_id' => $invoice_id,
+                    'customer_email' => $customer_email,
+                    'customer_name'  => $customer_name
+                );
+                if($total_recieved_amount==$data['set_total_due_amount'])
+                {
+                $this->Payment_model->updatePaymentstatus($invoice_id);;
+                }
+                $this->send_reciept($amount,$data['invoice'][0]->invoice_number,$payment_date,$invoice_id,$customer_email,$customer_name,$payment_type);
                 $_SESSION['done'] = "Payment Added Successfully";
                 redirect(base_url() . 'manage-transaction?id='.base64_encode($invoice_id));
+                
             }
             else
             {
@@ -819,6 +857,143 @@ class Invoice extends CI_Controller
                 redirect(base_url() . 'manage-transaction?id='.base64_encode($invoice_id));
             }
         }
+    }
+
+    public function send_reciept($set_total_due_amount,$invoice_number,$payment_date,$id,$email,$invoice_name,$payment_type)
+    {
+        $activeMail = active_mail()[0];
+        // prx($activeMail);
+        $date =   $payment_date; 
+        $payment_invoice_type = ($payment_type==1)?'':'Partially';
+        // send email invoice 
+        $toName = $invoice_name;
+        $toEmail = $email;
+        $fromName = $activeMail->sender_name;
+        $fromEmail = $activeMail->sender_email;
+        $subject = 'Trust Haven Payment Recevied';
+        //  $fileName =  $invoice_number . '.pdf';
+        //  $fullPath =  base_url() . 'file/' . $invoice_number . '.pdf';
+        $htmlMessage = '
+        <div style="height: 800px;  background-color: rgb(251,251,251); max-width: 600px;margin: auto;padding: 0 3%;">
+        <div style=" max-width: 560px;padding-top: 35px; height: 70px;text-align:center;background: #4190f2; display: block; position:relative; top:30px; color: white; font-weight: 900; font-size: 20px;">
+            <span style="position: relative;top: 40px;">Payment Received</span>
+        </div>
+        <div>
+            <p style="position: relative;top: 40px; font-size: 16px;">Dear '.$invoice_name.',</p>
+            <p style="position: relative;top: 40px;">Thank you for your payment. It was a pleasure doing business with you. We look forward to work together again!</p>
+        </div>
+        <br>
+        <div style="background-color: yellowgreen; height: 450px; position: relative;top: 40px; padding: 3%;background: #fefff1;border: 1px solid #e8deb5;color: #333;">
+            <div
+                style="position: relative;top: 10px;    padding: 0 3% 3%;border-bottom: 1px solid #e8deb5;text-align: center;">
+                <p style="text-align: center; font-size: large; font-weight: bold;">'.$payment_invoice_type.' Payment Received</p>
+                <p style="text-align: center; font-size: large; font-weight: bold;color: green;">$'.$set_total_due_amount.'</p>
+            </div>
+            <div
+                style="display: flex; padding: 50px 90px 0;  ustify-content: space-around;">
+                <div>
+                    <p style="text-align:start; margin-left:50px;">Invoice No.</p>
+                    <p style="text-align:start; margin-left:50px;">Payment Date</p>
+                </div>
+                <div>
+                    <p style="text-align:start; font-weight:900; margin-left:80px;">'.$invoice_number.'</p>
+                    <p style="text-align:start; font-weight:900; margin-left:80px;">'.$date.'</p>
+                </div>
+            </div>
+            <div>
+                <a href="' . base_url('view_invoice/viewinvoice?id=' . base64_encode($id) . '') . '"><button style=" background-color: #4dcf59;border: 1px solid #49bd54;text-align: center;min-width: 140px; margin-left: 190px;color: #fff;text-decoration: none;padding: 10px 20px;margin-top: 30px;">View Invoice</button></a>
+            </div>
+            <div>
+            </div>
+            <p style="text-align:start;">Regards, <br>
+            <span style="color: #8c8c8c;">Trust Haven Solution Inc.</span><br>
+        </div>
+    </div>';
+        $data = array(
+            "sender" => array(
+                "email" => $fromEmail,
+                "name" => $fromName
+            ),
+            "to" => array(
+                array(
+                    "email" => $toEmail,
+                    "name" => $toName
+                )
+            ),
+            // "attachment" => array(
+            //     array(
+            //         "url" => $fullPath,
+            //         "name" => $fileName 
+            //         )
+            // ), 
+            "subject" => $subject,
+            "htmlContent" => '<html><head></head><body><p>' . $htmlMessage . '</p></p></body></html>'
+        );
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://api.sendinblue.com/v3/smtp/email');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        $headers = array();
+        $headers[] = 'Accept: application/json';
+        $headers[] = 'Api-Key: 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';
+        $headers[] = 'Content-Type: application/json';
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $result = curl_exec($ch);
+        curl_close($ch);
+        // send email invoice 
+
+
+    }
+
+    public function invoice_reminder()
+    {
+        $invoice_id = base64_decode($this->input->get('id'));
+        $this->print($invoice_id);
+    }
+
+    
+    public function PrevgetInvoiceCustomNotes()
+    {
+        $record = array();
+        $customer_id = $_POST['customer_id'];
+        $data = array();
+        if($customer_id)
+        {
+        $data = $this->Invoice_model->getCustomerDetail($customer_id)[0];
+        if($invoice_record = $this->Invoice_model->getLastCustomNotes($customer_id)[0])
+        {
+            if($invoice_record->custom_notes_status==1)
+            {
+                // customer note checked;
+                if($data)
+                {
+                    $data->invoice_record = $invoice_record;
+                    $data->response_status = 1;
+                    $record = $data;
+                }
+                echo json_encode($record);
+            }
+            else
+            {
+                // customer note not checked;
+                $data->response_status = 2;
+                $data->customer_detail = "";
+                $record = $data;
+                echo json_encode($record);
+            }
+        }
+        else
+        {
+        
+        // new customer
+        $data->response_status = 3;
+        $data->invoice_record = "";
+        $record = $data;
+        echo json_encode($record);
+        }
+        }
+        return false;
     }
 
     public function pagination_setup($parms)
@@ -866,46 +1041,4 @@ class Invoice extends CI_Controller
         return $data;
     }
 
-    public function PrevgetInvoiceCustomNotes()
-    {
-        $record = array();
-        $customer_id = $_POST['customer_id'];
-        $data = array();
-        if($customer_id)
-        {
-        $data = $this->Invoice_model->getCustomerDetail($customer_id)[0];
-        if($invoice_record = $this->Invoice_model->getLastCustomNotes($customer_id)[0])
-        {
-            if($invoice_record->custom_notes_status==1)
-            {
-                // customer note checked;
-                if($data)
-                {
-                    $data->invoice_record = $invoice_record;
-                    $data->response_status = 1;
-                    $record = $data;
-                }
-                echo json_encode($record);
-            }
-            else
-            {
-                // customer note not checked;
-                $data->response_status = 2;
-                $data->customer_detail = "";
-                $record = $data;
-                echo json_encode($record);
-            }
-        }
-        else
-        {
-        
-        // new customer
-        $data->response_status = 3;
-        $data->invoice_record = "";
-        $record = $data;
-        echo json_encode($record);
-        }
-        }
-        return false;
-    }
 }

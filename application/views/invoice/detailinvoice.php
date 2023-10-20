@@ -762,7 +762,7 @@
 
             <p class="text-end  mx-3 bold-class">Balance Due</p>
 
-            <p class="text-end mx-3 bold-class" style="font-size: 18px;">$<?php echo $set_total_due_amount; ?> </p>
+            <p class="text-end mx-3 bold-class" style="font-size: 18px;">$<?php echo $balance_amt; ?> </p>
 
           </div>
 
@@ -931,7 +931,23 @@
               <td class="text-end"><b>$<?php echo $set_total_due_amount; ?></b></td>
 
             </tr>
+            <?php
+            if($balance_amt>0)
+            {
+              ?>
+                <tr>
 
+              <td style="width: 20%;"></td>
+
+              <td style="width: 20%;" class=""></td>
+
+              <td style="width: 20%;" class="text-end"></td>
+
+              <td class="text-end"><b>Payment Made</b></td>
+
+              <td class="text-end">(-)<b class="text-danger"> $<?php echo $total_recieved_amt; ?></b></td>
+
+              </tr>
             <tr>
 
               <td style="width: 20%;"></td>
@@ -942,10 +958,10 @@
 
               <td class="text-end" style="background-color: antiquewhite;"><b>Balance Due</b></td>
 
-              <td class="text-end" style="background-color: antiquewhite;"><b>$<?php echo $set_total_due_amount; ?></b></td>
+              <td class="text-end" style="background-color: antiquewhite;"><b>$<?php echo $balance_amt; ?></b></td>
 
             </tr>
-
+            <?php } ?>
           </table>
 
         </div>
