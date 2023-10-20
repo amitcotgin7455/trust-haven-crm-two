@@ -48,7 +48,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 */
 
-$config['base_url'] = 'http://localhost/github/trust-haven-crm/';
+$config['base_url'] = 'http://localhost/github/trust-haven-crm-two/';
 
 // $config['base_url'] = 'http://localhost:8080/github/trust-haven-crm/';
 
