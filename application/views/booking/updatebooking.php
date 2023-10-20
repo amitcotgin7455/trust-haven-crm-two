@@ -233,7 +233,9 @@
     .user-name p {
         margin: 0;
     }
-
+    p.lead-notes{
+        margin-top: -8px;
+    }
     p.lead-notes a:hover {
         color: #8d8c8c !important;
     }
@@ -247,31 +249,44 @@
     }
 
     .add-trash-btn {
-        display: none;
-    }
-
-    .user-notes-detail:hover .add-trash-btn {
-        display: block;
-
-    }
-
+	/* display: none; */
+	visibility: hidden;
+}
+.user-notes-detail:hover .add-trash-btn {
+	/* display: block; */
+	visibility: visible;
+}
+.lead-notes{
+    margin: top -8px;
+}
     .user-notes-detail {
         width: 43%;
     }
     /* mail module */
-    #myModal {
+  /* #myModal {
         height: 97vh
-    }
-
+    } */
+    /* .modal-fullscreen .modal-body{
+        height: auto !important
+    } */
     .modal-fullscreen {
-        width: 68vw;
+        /* width: 68vw;
         max-width: none;
         height: 97vh;
         margin: 0;
         left: 32%;
-        right: 0;
+        right: 0; */
+        background: var(--bg_white);
+    height: calc(100% - 28px);
+    width: 935px;
+    position: fixed;
+    transition: .5s ease-in-out;
+    z-index: 32;
+    box-shadow: 0 6px 12px 0 rgba(0,0,0,.4);
+    top: 0;
+    right: 0;
+    min-width: 70vw;
     }
-
     .modal-footer {
         justify-content: flex-start !important;
 
@@ -367,7 +382,7 @@
         position: absolute;
         right: 15px;
         text-align: right;
-        left: 0;
+        /* left: 0; */
     }
 
     .send-msg-top {
@@ -593,6 +608,12 @@
     .accordion-item{
         width:100%
     }
+    .modal-mail-details .modal-header {
+        padding: 7px 17px !important;
+    }
+    .modal-mail-details .modal-header .btn-close{
+       margin-top:-17px !important;
+    }
 </style>
 <?php
 if($lead_detail[0]->date)
@@ -717,7 +738,7 @@ $booking_date = $date_exp[2].','.($date_exp[0]-1).','.$date_exp[1];
                                                 <div class="pt-2 ps-4 position-relative">
                                                     <label for="">Date :</label>
                                                 </div>
-                                                <div class="px-4 position-relative">
+                                                <div class="px-4  position-relative">
                                                     <!-- <?php $sale_exp =  explode('-', $lead_detail[0]->date);
                                                     $date = $sale_exp[2] . '-' . $sale_exp[0] . '-' . $sale_exp[1];
                                                     ?>
@@ -725,20 +746,17 @@ $booking_date = $date_exp[2].','.($date_exp[0]-1).','.$date_exp[1];
                                                                                             echo $date;
                                                                                         } ?>" type="date" id="txtDate"> -->
                                                     
-                                                    <div id="booking_date" style="width: 346px;padding-left: 24px;" 
-             class="input-group date" 
-             data-date-format="mm-dd-yyyy"> 
-            <input class="form-control" 
-                   type="text" name="date" id="input_booking_date"   disabled/>  
-            <span class="input-group-addon"> 
-                <i class="glyphicon glyphicon-calendar"></i> 
-            </span> 
-                                                    <i id="edit-field1" class="edit-field fa-solid fa-pencil none-icon"></i>
-                                                    <span class="check-close d-flex">
-                                                        <a class="close-input-xmark" href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
-                                                        <a href="javascript:void(0)" class="check-input-check-booking"> <i class="fa-solid fa-check"></i></a>
-                                                    </span>
-                                                </div>
+                                                    <div id="booking_date" class="input-group date pe-4" data-date-format="mm-dd-yyyy" style="width:auto !important"> 
+                                                        <input class="form-control" type="text" readonly name="date" id="input_booking_date"/><span class="input-group-addon"></span> 
+                                                        <i id="edit-field1" class="edit-field fa-solid fa-pencil none-icon"></i>
+                                                        <span class="check-close d-flex">
+                                                            <a class="close-input-xmark" href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
+                                                            <a href="javascript:void(0)" class="check-input-check-booking"> <i class="fa-solid fa-check"></i></a>
+                                                        </span> 
+                                                    </div>     
+                                                        
+                                                    
+                                                     
                                                 </div>
                                             </div>
                                             <div class="d-flex mb-2">
@@ -1132,12 +1150,21 @@ $booking_date = $date_exp[2].','.($date_exp[0]-1).','.$date_exp[1];
     </div>
 </div>
 <!-- email detail  -->
-<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade modal-mail-details" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel" style="font-size: 1rem !important;">Mail Detail</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="24" height="24" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                            <g>
+                                <g fill="#000">
+                                    <path d="M8.854 8.146a.5.5 0 1 0-.708.708L11.293 12l-3.147 3.146a.5.5 0 0 0 .708.708L12 12.707l3.146 3.147a.5.5 0 0 0 .708-.708L12.707 12l3.147-3.146a.5.5 0 0 0-.708-.708L12 11.293z" fill="#000000" data-original="#000000" class=""></path>
+                                    <path fill-rule="evenodd" d="M2 7a5 5 0 0 1 5-5h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5zm5-4h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4z" clip-rule="evenodd" fill="#000000" data-original="#000000" class=""></path>
+                                </g>
+                            </g>
+                        </svg>
+                </button>
             </div>
             <div id="mailDetailShow"></div>
         </div>

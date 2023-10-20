@@ -359,7 +359,9 @@
             $filters .= ($_GET['s'])?' ,Search by':'';
             
             ?>
-    <p style="padding-left:20px" class="pt-3">Total Record : <?=count($result)?>. Filter by : <?=substr($filters,+2)?></p>
+  <div class="col-12">
+    <p class="p-para"> <b>Total Record :</b> <?=count($result)?> . <b> Filter by :</b> <?=substr($filters,+2)?></p>
+    </div>
     <?php } ?>
     </div>
         <div class="row">

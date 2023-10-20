@@ -277,7 +277,7 @@ a.User_profile {
 	background: #ffff;
 	/* padding: 20px; */
 	border-radius: 12px 12px 0 0;
-	height: 77vh;
+	height: 72vh;
 	overflow: hidden;
 	border: 1px solid #d7e2ed !important;
 }
@@ -348,7 +348,7 @@ th {
 	width: auto !important;
 	min-width: 100%;
 	overflow: auto;
-	height: 76.5vh;
+	height: 80.5vh !important;
 	max-height: inherit;
 }
 div#listnotes, div#listnotes_booking {
@@ -661,7 +661,7 @@ th {
 #table_data_check tbody tr td {
 	border-bottom: 1px solid #edf0f4;
 	empty-cells: show;
-	padding: 14px 10px 5px !important;
+	padding: 8px 10px 5px !important;
 	vertical-align: top;
 	font-weight: 400;
 	text-align: left;
@@ -818,7 +818,7 @@ th {
 	padding: 7px;
 	text-align: start;
 	margin-top: 12px;
-	margin-left: -31px;
+	margin-left: -34px;
 }
 .detail-box label {
 	width: 130px;
@@ -830,32 +830,42 @@ th {
 }
 .detail-box input,
 .detail-box select,
-.detail-box textarea {
+.detail-box textarea  {
 	width: 321px !important;
 	padding-right: 20px;
-	font-size: 14px !important; 
-    color: #313949 !important;
+	font-size: 13px !important; 
+    color: #707787 !important;
     font-weight: 500 !important;
     border-radius: 4px !important;
     font-family: 'Open Sans' !important;
 }
 .selectize-control.single .selectize-input,
 .selectize-control.single .selectize-input input {
-	width: 406px !important;
+	width: 321px !important;
+	padding-right: 20px;
 	z-index: 1;
 	position: relative;
-	color: #313949;
-	font-weight: 400 !important;
-	font-size: 15px;
+	font-size: 13px !important; 
+    color: #707787 !important;
+    font-weight: 500 !important;
+    border-radius: 4px !important;
+    font-family: 'Open Sans' !important;
+}
+.selectize-control .selectize-input .item{
+	font-size: 13px !important; 
+    color: #707787 !important;
+    font-weight: 500 !important;
+    border-radius: 4px !important;
+    font-family: 'Open Sans' !important;
 }
 .selectize-control.single .selectize-input.input-active,
 .selectize-control.single .selectize-input.input-active input {
-	width: 300px !important;
+	width: 321px !important;
 	z-index: 1;
 	position: relative;
-	color: #313949;
-	font-weight: 400 !important;
-	font-size: 15px;
+	color: #707787 !important;
+	font-weight: 500 !important;
+	font-size: 13px;
 }
 .detail-box .input-group {
 	display: flex;
@@ -893,18 +903,19 @@ th {
 }
 .detail-box .form-control div {
 	color: #313949;
-	font-weight: 400 !important;
-	font-size: 15px;
+    font-weight: 500 !important;
+    font-size: 13px;
+    font-family: 'Open Sans';
 }
 .detail-box p span#user_name {
 	color: #313949;
 	font-weight: 400 !important;
-	font-size: 15px;
+	font-size: 14px;
 }
 .detail-box p {
 	color: #313949;
 	font-weight: 400 !important;
-	font-size: 15px;
+	font-size: 13px;
 }
 .owner-detail {
 	background-color: #fff;
@@ -1333,6 +1344,58 @@ right: 0;
     -moz-appearance: none;
     appearance: none;
 }
+/* date-picker */
+.ui-timepicker-standard {
+   
+    font-size: 14px !important;
+   
+    color: #707787 !important;
+  
+    padding: 1px !important;
+	z-index: 999 !important;
+}
+.datepicker td, .datepicker th{
+	font-size: 12px !important;
+	padding: 5px !important;
+}
+.datepicker .datepicker-switch:hover, .datepicker .next:hover, .datepicker .prev:hover, .datepicker tfoot tr th:hover {
+    background: #eee !important;
+    color: #0a3161 !important;
+}
+.ui-timepicker-standard .ui-state-hover {
+    background-color: #EDF6FF !important;
+    border: none !important;
+    font-weight: 600 !important;
+    color: #212121 !important;
+    font-size: 14px !important;
+}
+.ui-timepicker-standard a{
+	color: #686868 !important;
+    display: block !important;
+    font-weight: 500 !important;
+}
 .show-read-more .more-text{
 	display: none;
+}
+p.text-danger{
+	font-size: 13px;
+    padding: 17px 0 0 10px;
+}
+.mail-table-container {
+    padding: 20px 0;
+}
+p.p-para{
+	color: #555;
+	font-size: 14px;
+
+}
+p.p-para b{
+	color: #000;
+	font-size: 14px;
+	
+}
+.filter-main {
+    position: absolute;
+    right: -8px;
+    top: -5px;
 }

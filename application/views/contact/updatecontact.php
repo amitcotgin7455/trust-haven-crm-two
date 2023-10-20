@@ -234,16 +234,29 @@
     .user-notes-detail {
         width: 43%;
     }
-    #myModal {
+    /* #myModal {
         height: 97vh
-    }
+    } */
+    /* .modal-fullscreen .modal-body{
+        height: auto !important
+    } */
     .modal-fullscreen {
-        width: 68vw;
+        /* width: 68vw;
         max-width: none;
         height: 97vh;
         margin: 0;
         left: 32%;
-        right: 0;
+        right: 0; */
+        background: var(--bg_white);
+    height: calc(100% - 28px);
+    width: 935px;
+    position: fixed;
+    transition: .5s ease-in-out;
+    z-index: 32;
+    box-shadow: 0 6px 12px 0 rgba(0,0,0,.4);
+    top: 0;
+    right: 0;
+    min-width: 70vw;
     }
     .modal-footer {
         justify-content: flex-start !important;
@@ -328,7 +341,7 @@
         position: absolute;
         right: 15px;
         text-align: right;
-        left: 0;
+        /* left: 0; */
     }
     .send-msg-top {
         padding: 10px 15px;
@@ -515,12 +528,17 @@
         box-shadow: none
     }
     .ck-editor__editable {
-        min-height: 500px;
+        min-height: 480px;
     }
     .accordion-item{
         width:100%
     }
-    
+    .modal-mail-details .modal-header {
+        padding: 7px 17px !important;
+    }
+    .modal-mail-details .modal-header .btn-close{
+       margin-top:-17px !important;
+    }
 </style>
 <?php
 if($lead_detail[0]->sale_date)
@@ -534,6 +552,7 @@ $expiry_date_exp =  explode('-',$lead_detail[0]->expiry_date);
 $expiry_date = $expiry_date_exp[2].','.($expiry_date_exp[0]-1).','.$expiry_date_exp[1];
 }
 ?>
+
 <!-- header end  -->
 <div class="second_header">
     <div class="container-fluid ">
@@ -651,9 +670,10 @@ $expiry_date = $expiry_date_exp[2].','.($expiry_date_exp[0]-1).','.$expiry_date_
                                                                             } ?>>Done</option>
                                                     </select> -->
                                                     <i id="edit-field1" class="edit-field fa-solid fa-pencil none-icon"></i>
-                                                    <span class="check-close d-flex">
-                                                        <a class="close-input-xmark" href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
-                                                        <a href="javascript:void(0)" class="check-input-check-contacts"> <i class="fa-solid fa-check"></i></a>
+                                                    <span class="check-close check1 d-flex" id="1" style="display:none !important;">
+                                                    <span class="check-close check1 d-flex" id="1">
+                                                        <a class="close-input-xmark checkopt" href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
+                                                        <a href="javascript:void(0)" class="check-input-check-contacts checkopt"> <i class="fa-solid fa-check"></i></a>
                                                     </span>
                                                 </div>
                                             </div>
@@ -748,18 +768,11 @@ $expiry_date = $expiry_date_exp[2].','.($expiry_date_exp[0]-1).','.$expiry_date_
                                                         </div>                                       
                                                     </div>
                                                     
-                                                    <!-- <select class="form-control form-select" aria-label="Default select example" style="width: 300px;" id="courtesy">
-                                                        <option value="1" <?php if ($lead_detail[0]->courtesy == 1) {
-                                                                                echo 'selected';
-                                                                            } ?>>Pending</option>
-                                                        <option value="2" <?php if ($lead_detail[0]->courtesy == 2) {
-                                                                                echo 'selected';
-                                                                            } ?>>Done</option>
-                                                    </select> -->
+                                                   
                                                     <i id="edit-field1" class="edit-field fa-solid fa-pencil none-icon"></i>
-                                                    <span class="check-close d-flex">
-                                                        <a class="close-input-xmark" href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
-                                                        <a href="javascript:void(0)" class="check-input-check-contacts"> <i class="fa-solid fa-check"></i></a>
+                                                    <span class="check-close check2 d-flex" id="1">
+                                                        <a class="close-input-xmark checkopt1" href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
+                                                        <a href="javascript:void(0)" class="check-input-check-contacts checkopt1"> <i class="fa-solid fa-check"></i></a>
                                                     </span>
                                                 </div>
                                             </div>
@@ -782,9 +795,9 @@ $expiry_date = $expiry_date_exp[2].','.($expiry_date_exp[0]-1).','.$expiry_date_
                                                                             } ?>>No</option>
                                                     </select> -->
                                                     <i id="edit-field1" class="edit-field fa-solid fa-pencil none-icon"></i>
-                                                    <span class="check-close d-flex">
-                                                        <a class="close-input-xmark" href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
-                                                        <a href="javascript:void(0)" class="check-input-check-contacts"> <i class="fa-solid fa-check"></i></a>
+                                                    <span class="check-close check3 d-flex" id="1">
+                                                        <a class="close-input-xmark checkopt2" href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
+                                                        <a href="javascript:void(0)" class="check-input-check-contacts checkopt2"> <i class="fa-solid fa-check"></i></a>
                                                     </span>
                                                 </div>
                                             </div>
@@ -807,9 +820,9 @@ $expiry_date = $expiry_date_exp[2].','.($expiry_date_exp[0]-1).','.$expiry_date_
                                                                             } ?>>No</option>
                                                     </select> -->
                                                     <i id="edit-field1" class="edit-field fa-solid fa-pencil none-icon"></i>
-                                                    <span class="check-close d-flex">
-                                                        <a class="close-input-xmark" href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
-                                                        <a href="javascript:void(0)" class="check-input-check-contacts"> <i class="fa-solid fa-check"></i></a>
+                                                    <span class="check-close check4 d-flex" id="1">
+                                                        <a class="close-input-xmark checkopt3" href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
+                                                        <a href="javascript:void(0)" class="check-input-check-contacts checkopt3"> <i class="fa-solid fa-check"></i></a>
                                                     </span>
                                                 </div>
                                                 
@@ -1015,9 +1028,9 @@ $expiry_date = $expiry_date_exp[2].','.($expiry_date_exp[0]-1).','.$expiry_date_
                                                     </select> -->
                                                   
                                                     <i id="edit-field1" class="edit-field fa-solid fa-pencil none-icon"></i>
-                                                    <span class="check-close d-flex">
-                                                        <a class="close-input-xmark" href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
-                                                        <a href="javascript:void(0)" class="check-input-check-contacts"> <i class="fa-solid fa-check"></i></a>
+                                                    <span class="check-close check5 d-flex" id="1">
+                                                        <a class="close-input-xmark checkopt4" href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
+                                                        <a href="javascript:void(0)" class="check-input-check-contacts checkopt4"> <i class="fa-solid fa-check"></i></a>
                                                     </span>
                                                 </div>
                                             </div>
@@ -1040,9 +1053,9 @@ $expiry_date = $expiry_date_exp[2].','.($expiry_date_exp[0]-1).','.$expiry_date_
                                                                             } ?>>No</option>
                                                     </select> -->
                                                     <i id="edit-field1" class="edit-field fa-solid fa-pencil none-icon"></i>
-                                                    <span class="check-close d-flex">
-                                                        <a class="close-input-xmark" href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
-                                                        <a href="javascript:void(0)" class="check-input-check-contacts"> <i class="fa-solid fa-check"></i></a>
+                                                    <span class="check-close check6 d-flex" id="1">
+                                                        <a class="close-input-xmark checkopt5" href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
+                                                        <a href="javascript:void(0)" class="check-input-check-contacts checkopt5"> <i class="fa-solid fa-check"></i></a>
                                                     </span>
                                                 </div>
                                             </div>
@@ -1065,9 +1078,9 @@ $expiry_date = $expiry_date_exp[2].','.($expiry_date_exp[0]-1).','.$expiry_date_
                                                                             } ?>>No</option>
                                                     </select> -->
                                                     <i id="edit-field1" class="edit-field fa-solid fa-pencil none-icon"></i>
-                                                    <span class="check-close d-flex">
-                                                        <a class="close-input-xmark" href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
-                                                        <a href="javascript:void(0)" class="check-input-check-contacts"> <i class="fa-solid fa-check"></i></a>
+                                                    <span class="check-close check7 d-flex" id="1">
+                                                        <a class="close-input-xmark checkopt6" href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
+                                                        <a href="javascript:void(0)" class="check-input-check-contacts checkopt6"> <i class="fa-solid fa-check"></i></a>
                                                     </span>
                                                 </div>
                                             </div>
@@ -1079,9 +1092,7 @@ $expiry_date = $expiry_date_exp[2].','.($expiry_date_exp[0]-1).','.$expiry_date_
                                                     <!-- <input type="text" class="form-control date-input" readonly="readonly" value="<?php if (!empty($lead_detail[0]->expiry_date)) {
                                                                                                                                         echo $lead_detail[0]->expiry_date;
                                                                                                                                     } ?>" id="txtDate"> -->
-                                                  <div id="contact_exp_date" style="width: 346px;padding-left: 24px;" 
-                                                    class="input-group date" 
-                                                    data-date-format="mm-dd-yyyy"> 
+                                                  <div id="contact_exp_date" class="input-group date pe-4"  data-date-format="mm-dd-yyyy"  style="width:auto !important"> 
                                                     <input class="form-control date-input" 
                                                         type="text" name="expiry_date" id="expiry_date"/> 
                                                     <span class="input-group-addon"> 
@@ -1378,12 +1389,21 @@ $expiry_date = $expiry_date_exp[2].','.($expiry_date_exp[0]-1).','.$expiry_date_
 </div>
 
 <!-- email detail  -->
-<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade modal-mail-details" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel" style="font-size: 1rem !important;">Mail Detail</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="24" height="24" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                            <g>
+                                <g fill="#000">
+                                    <path d="M8.854 8.146a.5.5 0 1 0-.708.708L11.293 12l-3.147 3.146a.5.5 0 0 0 .708.708L12 12.707l3.146 3.147a.5.5 0 0 0 .708-.708L12.707 12l3.147-3.146a.5.5 0 0 0-.708-.708L12 11.293z" fill="#000000" data-original="#000000" class=""></path>
+                                    <path fill-rule="evenodd" d="M2 7a5 5 0 0 1 5-5h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5zm5-4h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4z" clip-rule="evenodd" fill="#000000" data-original="#000000" class=""></path>
+                                </g>
+                            </g>
+                        </svg>
+                </button>
             </div>
             <div id="mailDetailShow"></div>
         </div>
@@ -1411,7 +1431,179 @@ $expiry_date = $expiry_date_exp[2].','.($expiry_date_exp[0]-1).','.$expiry_date_
             }
         });
     });
+// checkbox hide show 
+// 1st
+    $(document).on('click', '#email_opt_out', function() {
+        var emailotp = $('.check1').attr('id');
+        if (emailotp === '1') {
+            $(".check1").attr('id', '2');
+            $(".checkopt").css('opacity', '1');
+        } else if (emailotp === '2') {
+            $(".check1").attr('id', '1');
+            $(".checkopt").css('opacity', '0');
+        } else {
+            $(".check1").attr('id', '2');
+            $(".checkopt").css('opacity', '0');
+        }
+    });
+    // Clicking outside the checkbox
+    $(document).on('click', function(event) {
+        if (!$(event.target).closest('#email_opt_out').length) {
+            $(".check1").attr('id', '1');
+            $(".checkopt").css('opacity', '0');
+        }
+    });
+// 2nd
+$(document).on('click', '#courtesy', function() {
+        var emailotp2 = $('.check2').attr('id');
+        if (emailotp2 === '1') {
+            $(".check2").attr('id', '2');
+            $(".checkopt1").css('opacity', '1');
+        } else if (emailotp2 === '2') {
+            $(".check2").attr('id', '1');
+            $(".checkopt1").css('opacity', '0');
+        } else {
+            $(".check2").attr('id', '2');
+            $(".checkopt1").css('opacity', '0');
+        }
+    });
+    // Clicking outside the checkbox
+    $(document).on('click', function(event) {
+        if (!$(event.target).closest('#courtesy').length) {
+            $(".check2").attr('id', '1');
+            $(".checkopt1").css('opacity', '0');
+        }
+    });
 
+    $(document).on('click', '#email_opt_out', function() {
+        var emailotp = $('.check1').attr('id');
+        if(emailotp == '1'){
+            $('.check1').css("display", "block");
+            $(".check1").attr('id', '2');
+            $(".checkopt").css('opacity','1');
+            //$(".check-close").parent().find('a').css('opacity','1');
+        } else  if(emailotp == '2'){
+            $('.check1').css("display", "none");
+            $(".check1").attr('id', '1');
+            $(".checkopt").css('opacity','0');
+        } else {
+            $('.check1').css("display", "none");
+            $(".check1").attr('id', '2');
+            $(".checkopt").css('opacity','0');
+        }
+    });
+
+
+// 3nd
+$(document).on('click', '#ha', function() {
+        var emailotp3 = $('.check3').attr('id');
+        if (emailotp3 === '1') {
+            $(".check3").attr('id', '2');
+            $(".checkopt2").css('opacity', '1');
+        } else if (emailotp3 === '2') {
+            $(".check3").attr('id', '1');
+            $(".checkopt2").css('opacity', '0');
+        } else {
+            $(".check3").attr('id', '2');
+            $(".checkopt2").css('opacity', '0');
+        }
+    });
+    // Clicking outside the checkbox
+    $(document).on('click', function(event) {
+        if (!$(event.target).closest('#ha').length) {
+            $(".check3").attr('id', '1');
+            $(".checkopt2").css('opacity', '0');
+        }
+    });
+
+// 4th
+$(document).on('click', '#google', function() {
+        var emailotp4 = $('.check4').attr('id');
+        if (emailotp4 === '1') {
+            $(".check4").attr('id', '2');
+            $(".checkopt3").css('opacity', '1');
+        } else if (emailotp4 === '2') {
+            $(".check4").attr('id', '1');
+            $(".checkopt3").css('opacity', '0');
+        } else {
+            $(".check4").attr('id', '2');
+            $(".checkopt3").css('opacity', '0');
+        }
+    });
+    // Clicking outside the checkbox
+    $(document).on('click', function(event) {
+        if (!$(event.target).closest('#google').length) {
+            $(".check4").attr('id', '1');
+            $(".checkopt3").css('opacity', '0');
+        }
+    });
+
+
+    // 5th
+$(document).on('click', '#bbb', function() {
+        var emailotp5 = $('.check5').attr('id');
+        if (emailotp5 === '1') {
+            $(".check5").attr('id', '2');
+            $(".checkopt4").css('opacity', '1');
+        } else if (emailotp5 === '2') {
+            $(".check5").attr('id', '1');
+            $(".checkopt4").css('opacity', '0');
+        } else {
+            $(".check5").attr('id', '2');
+            $(".checkopt4").css('opacity', '0');
+        }
+    });
+    // Clicking outside the checkbox
+    $(document).on('click', function(event) {
+        if (!$(event.target).closest('#bbb').length) {
+            $(".check5").attr('id', '1');
+            $(".checkopt4").css('opacity', '0');
+        }
+    });
+  // 6th
+  $(document).on('click', '#fb', function() {
+        var emailotp6 = $('.check6').attr('id');
+        if (emailotp6 === '1') {
+            $(".check6").attr('id', '2');
+            $(".checkopt5").css('opacity', '1');
+        } else if (emailotp6 === '2') {
+            $(".check6").attr('id', '1');
+            $(".checkopt5").css('opacity', '0');
+        } else {
+            $(".check6").attr('id', '2');
+            $(".checkopt5").css('opacity', '0');
+        }
+    });
+    // Clicking outside the checkbox
+    $(document).on('click', function(event) {
+        if (!$(event.target).closest('#fb').length) {
+            $(".check6").attr('id', '1');
+            $(".checkopt5").css('opacity', '0');
+        }
+    });
+
+
+      // 7th
+$(document).on('click', '#service', function() {
+        var emailotp7 = $('.check7').attr('id');
+        if (emailotp7 === '1') {
+            $(".check7").attr('id', '2');
+            $(".checkopt6").css('opacity', '1');
+        } else if (emailotp7 === '2') {
+            $(".check7").attr('id', '1');
+            $(".checkopt6").css('opacity', '0');
+        } else {
+            $(".check7").attr('id', '2');
+            $(".checkopt6").css('opacity', '0');
+        }
+    });
+    // Clicking outside the checkbox
+    $(document).on('click', function(event) {
+        if (!$(event.target).closest('#service').length) {
+            $(".check7").attr('id', '1');
+            $(".checkopt6").css('opacity', '0');
+        }
+    });
     //view mail details
     $(document).on('click', '.email_detail', function() {
         let eMailId = $(this).attr("data-email");

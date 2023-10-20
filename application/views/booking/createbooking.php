@@ -167,15 +167,10 @@ if($time)
                                         </div>
                                         <div class="px-4 position-relative">  
                                             <div class="input-group">
-                                            <div id="booking_date" style="width: 346px;padding-left: 24px;" 
-                                                class="input-group date" 
-                                                data-date-format="mm-dd-yyyy"> 
-                                                <input class="form-control" 
-                                                    type="text" name="date"/> 
-                                                <span class="input-group-addon"> 
-                                                    <i class="glyphicon glyphicon-calendar"></i> 
-                                                </span> 
-                                            </div> 
+                                                <div id="booking_date" class="input-group date" data-date-format="mm-dd-yyyy" style="width:auto !important"> 
+                                                    <input class="form-control" type="text" name="date"/>  <span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i> 
+                                                    </span> 
+                                                </div> 
                                                 <!-- <span class="input-group-text input-contact-icon" id="basic-addon1">
                                                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M6.48584 9.88889H11.5142M5.44444 5.44444V1M12.5556 5.44444V1M3.84444 17H14.1556C15.1512 17 15.649 17 16.0293 16.8062C16.3638 16.6358 16.6358 16.3638 16.8062 16.0293C17 15.649 17 15.1512 17 14.1556V5.62222C17 4.62657 17 4.12875 16.8062 3.74846C16.6358 3.41395 16.3638 3.14199 16.0293 2.97154C15.649 2.77778 15.1512 2.77778 14.1556 2.77778H3.84444C2.8488 2.77778 2.35097 2.77778 1.97068 2.97154C1.63617 3.14199 1.36421 3.41395 1.19377 3.74846C1 4.12875 1 4.62657 1 5.62222V14.1556C1 15.1512 1 15.649 1.19377 16.0293C1.36421 16.3638 1.63617 16.6358 1.97068 16.8062C2.35097 17 2.8488 17 3.84444 17Z" stroke="#615E5E" stroke-width="1.5" stroke-linecap="round"></path>
@@ -207,23 +202,23 @@ if($time)
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                <div class="d-flex mb-2">
-                                        <div class="pt-2 ps-4 position-relative">
-                                            <label for="validationTooltip06" class="form-label">Time<span class="text-danger">*</span></label>
-                                        </div>
-                                        <div class="px-4 position-relative">  
-                                            <div class="input-group">
-                                                <span class="input-group-text input-contact-icon" id="basic-addon1">
-                                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M6.48584 9.88889H11.5142M5.44444 5.44444V1M12.5556 5.44444V1M3.84444 17H14.1556C15.1512 17 15.649 17 16.0293 16.8062C16.3638 16.6358 16.6358 16.3638 16.8062 16.0293C17 15.649 17 15.1512 17 14.1556V5.62222C17 4.62657 17 4.12875 16.8062 3.74846C16.6358 3.41395 16.3638 3.14199 16.0293 2.97154C15.649 2.77778 15.1512 2.77778 14.1556 2.77778H3.84444C2.8488 2.77778 2.35097 2.77778 1.97068 2.97154C1.63617 3.14199 1.36421 3.41395 1.19377 3.74846C1 4.12875 1 4.62657 1 5.62222V14.1556C1 15.1512 1 15.649 1.19377 16.0293C1.36421 16.3638 1.63617 16.6358 1.97068 16.8062C2.35097 17 2.8488 17 3.84444 17Z" stroke="#615E5E" stroke-width="1.5" stroke-linecap="round"></path>
-                                                    </svg>                                        
-                                                </span>
-                                                <input type="text" class="form-control date-input timepicker" placeholder="time" name="time" aria-label="date" aria-describedby="basic-addon1" value="<?php if(!empty($time)){ echo $time; } else{ echo set_value('time'); } ?>" data-gtm-form-interact-field-id="0">
+                                    <div class="d-flex mb-2">
+                                            <div class="pt-2 ps-4 position-relative">
+                                                <label for="validationTooltip06" class="form-label">Time<span class="text-danger">*</span></label>
                                             </div>
-                                            <span class="text-danger"><?php echo form_error('time'); ?></span>
+                                            <div class="px-4 position-relative">  
+                                                <div class="input-group" style="width:321px !important">
+                                                    <span class="input-group-text input-contact-icon" id="basic-addon1">
+                                                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M6.48584 9.88889H11.5142M5.44444 5.44444V1M12.5556 5.44444V1M3.84444 17H14.1556C15.1512 17 15.649 17 16.0293 16.8062C16.3638 16.6358 16.6358 16.3638 16.8062 16.0293C17 15.649 17 15.1512 17 14.1556V5.62222C17 4.62657 17 4.12875 16.8062 3.74846C16.6358 3.41395 16.3638 3.14199 16.0293 2.97154C15.649 2.77778 15.1512 2.77778 14.1556 2.77778H3.84444C2.8488 2.77778 2.35097 2.77778 1.97068 2.97154C1.63617 3.14199 1.36421 3.41395 1.19377 3.74846C1 4.12875 1 4.62657 1 5.62222V14.1556C1 15.1512 1 15.649 1.19377 16.0293C1.36421 16.3638 1.63617 16.6358 1.97068 16.8062C2.35097 17 2.8488 17 3.84444 17Z" stroke="#615E5E" stroke-width="1.5" stroke-linecap="round"></path>
+                                                        </svg>                                        
+                                                    </span>
+                                                    <input type="text" class="form-control date-input timepicker" placeholder="time" name="time" aria-label="date" aria-describedby="basic-addon1" value="<?php if(!empty($time)){ echo $time; } else{ echo set_value('time'); } ?>" data-gtm-form-interact-field-id="0">
+                                                </div>
+                                                <span class="text-danger"><?php echo form_error('time'); ?></span>
+                                            </div>
                                         </div>
-                                    </div>
-                               </div>
+                                </div>
                                </div>
                             
                             <div class="row mb-3">

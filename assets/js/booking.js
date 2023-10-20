@@ -207,13 +207,13 @@ $(document).ready(function () {
 					}
 				}
 				for (let i = 0; i < numEntries; i++) {
-					html += '<div class="user-notes d-flex mb-3">';
+					html += '<div class="user-notes d-flex mb-4">';
 					html += '<div class="user-name">';
 					html += "<p>" + header + "</p>";
 					html += "</div>";
-					html += '<div class="user-notes-detail mt-2 ms-3">';
+					html += '<div class="user-notes-detail ms-3">';
 					html += '<div class="d-flex justify-content-between">';
-					html += "<p class='show-read-more'>" + data[i].title + "</p>";
+					html += "<p>" + data[i].title + "</p>";
 					html += '<div class="add-trash-btn">';
 					html +=
 						'<a  href="javascript:void(0)" class="me-3 getNoteMessage_booking"  data-bs-toggle="modal" data-bs-target="#exampleModal2" data-title="' +
@@ -228,21 +228,21 @@ $(document).ready(function () {
 						'"><i class="fa-solid fa-trash"></i></a>';
 					html += "</div>";
 					html += "</div>";
-					html += "<div>";
+					html += '<div  class="lead-notes">';
 
 					html +=
-						'<p class="lead-notes"><span style="color: #6d6b6b; font-size: 14px;"> ' +
+						'<span style="color: #6d6b6b; font-size: 12px;"> ' +
 						data[i].module_name +
-						' - </span> <a href="javascript:void(0)" style="font-weight: 500; color: #b41e45; "> ' +
+						' - </span> <a href="javascript:void(0)" style="font-weight: 500; color: #2196F3; font-size: 12px; "> ' +
 						get_booking_first_name +
-						'</a><span style="font-weight: 800; color: #6d6b6b; font-size: 24px; padding: 15px;">.</span><a class="edit-notes" style="font-weight: 500;" href="javascript:void(0)">Add Note</a> <span style="font-weight: 800; color: #6d6b6b; font-size: 24px; padding: 15px;">.</span><a data-bs-toggle="tooltip" data-bs-placement="bottom" title="' +
+						'</a><span style="font-weight: 800; color: #616E88; font-size: 24px; padding: 15px;">.</span><a class="edit-notes" style="font-weight: 500;font-size: 14px; color:#616E88" href="javascript:void(0)">Add Note</a> <span style="font-weight: 800; color: #6d6b6b; font-size: 24px; padding: 15px;">.</span><a data-bs-toggle="tooltip" data-bs-placement="bottom" title="' +
 						data[i].created_date +
-						'"><i class="fa-solid fa-clock"></i></a><span style="color: #6d6b6b; font-size: 13px; padding: 10px;">Now by <b style="color:#313949;">' +
+						'"><i class="fa-solid fa-clock"></i></a><span style="color: #6d6b6b; font-size: 12px; padding: 10px;">Now by <b style="color:#313949;">' +
 						user_name +
-						"<br>" +
+						// "<br>" +
 						data[i].created_date +
 						" </b> </span>";
-					html += "</p>";
+					// html += "</p>";
 					html += "</div>";
 					html += "</div>";
 					html += "</div>";

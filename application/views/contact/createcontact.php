@@ -23,6 +23,7 @@ $customer_id='';
 $email_opt_out='';
 $plan_status='';
 $plan='';
+$amc_plan='';
 $amount='';
 $remote_id1='';
 $sale_id1='';
@@ -48,6 +49,7 @@ foreach($result as $row){
     $email_opt_out= $row->email_opt_out;
     $plan_status= $row->plan_status;
     $plan= $row->plan;
+    $amc_plan= $row->amc_plan;
     $amount= $row->amount;
     $remote_id1= $row->remote_id;
     $sale_id1= $row->sale_id;
@@ -78,6 +80,7 @@ if(!empty($exist_lead_detail))
         $email_opt_out= $exist_lead_detail->email_opt_out;
         $plan_status= $exist_lead_detail->plan_status;
         $plan= $exist_lead_detail->plan;
+        $amc_plan= $exist_lead_detail->amc_plan;
         $amount= $exist_lead_detail->amount;
         $remote_id1= $exist_lead_detail->remote_id;
         $sale_id1= $exist_lead_detail->sale_id;
@@ -352,7 +355,7 @@ $expiry_date = $expiry_date_exp[2].','.($expiry_date_exp[0]-1).','.$expiry_date_
                                                 <div class="pt-2 ps-4 position-relative">
                                                     <label for="bbbchecked" class="form-label mx-3">BBB</label> 
                                                 </div>                                        
-                                                <div class="px-4 position-relative" style="margin-left: 13px;">
+                                                <div class="ps-5 pe-4 position-relative">
                                                     <input class="form-check-input" type="checkbox" id="bbbchecked" name="bbb" value="1" <?php if($bbb==1){ echo 'checked';}?> <?= (set_value('bbb') == 1) ? 'checked' : ''; ?>>
                                                 </div> 
                                             </div>   
@@ -362,7 +365,7 @@ $expiry_date = $expiry_date_exp[2].','.($expiry_date_exp[0]-1).','.$expiry_date_
                                                 <div class="pt-2 ps-4 position-relative">    
                                                     <label for="Courtesycheck" class="form-label  mx-3">Courtesy</label> 
                                                 </div>
-                                                <div class="px-4 position-relative">
+                                                <div class="ps-5 pe-4 position-relative">
                                                     <input class="form-check-input" type="checkbox" id="Courtesycheck" name="courtesy"  value="2" <?php if($courtesy==2){ echo 'checked';}?> <?= (set_value('courtesy') == 2) ? 'checked' : ''; ?>>
                                                 </div>                                       
                                             </div>         
@@ -376,7 +379,7 @@ $expiry_date = $expiry_date_exp[2].','.($expiry_date_exp[0]-1).','.$expiry_date_
                                                 <div class="pt-2 ps-4 position-relative">
                                                     <label for="fbchecked" class="form-label mx-3">FB  </label> 
                                                 </div>                                        
-                                                <div class="px-4 position-relative">
+                                                <div class="ps-5 pe-4 position-relative">
                                                     <input class="form-check-input" type="checkbox" id="fbchecked" name="fb" value="1" <?php if($fb==1){ echo 'checked';}?> <?= (set_value('fb') == 1) ? 'checked' : ''; ?>>
                                                 </div> 
                                             </div>  
@@ -386,7 +389,7 @@ $expiry_date = $expiry_date_exp[2].','.($expiry_date_exp[0]-1).','.$expiry_date_
                                                 <div class="pt-2  ps-4 position-relative"> 
                                                     <label for="Hachecked" class="form-label mx-3">HA</label> 
                                                 </div>
-                                                <div class="px-4 position-relative">
+                                                <div class="ps-5 pe-4 position-relative">
                                                     <input class="form-check-input" type="checkbox" id="Hachecked" name="ha" value="1" <?php if($ha==1){ echo 'checked';}?> <?= (set_value('ha') == 1) ? 'checked' : ''; ?>>
                                                 </div> 
                                             </div>  
@@ -397,7 +400,7 @@ $expiry_date = $expiry_date_exp[2].','.($expiry_date_exp[0]-1).','.$expiry_date_
                                                 <div class="pt-2 ps-4 position-relative">
                                                     <label for="servicechecked" class="form-label mx-3">Service</label> 
                                                 </div>                                        
-                                                <div class="px-4 position-relative" style="margin-left: 13px;">
+                                                <div class="ps-5 pe-4 position-relative">
                                                     <input class="form-check-input" type="checkbox" id="servicechecked" name="service" value="1" <?php if($service==1){ echo 'checked';}?> <?= (set_value('service') == 1) ? 'checked' : ''; ?>>
                                                 </div> 
                                             </div> 
@@ -407,7 +410,7 @@ $expiry_date = $expiry_date_exp[2].','.($expiry_date_exp[0]-1).','.$expiry_date_
                                                     <div class="pt-2 ps-4 position-relative">
                                                         <label for="Googlechecked" class="form-label mx-3">Google</label> 
                                                     </div>
-                                                    <div class="px-4 position-relative">
+                                                    <div class="ps-5 pe-4 position-relative">
                                                         <input class="form-check-input" type="checkbox" id="Googlechecked" name="google" value="1" <?php if($google==1){ echo 'checked';}?> <?= (set_value('google') == 1) ? 'checked' : ''; ?>>
                                                     </div>                                        
                                                 </div> 
@@ -420,18 +423,7 @@ $expiry_date = $expiry_date_exp[2].','.($expiry_date_exp[0]-1).','.$expiry_date_
                                                 <div class="pt-2 ps-4 position-relative">
                                                     <label for="validationTooltip03" class="form-label">Sale Date<span class="text-danger">*</span> </label> 
                                                         <!-- <input class="form-control "  type="date" id="flexCheckChecked" name="sale_date" value="<?php if(!empty($sale_date)){ echo$sale_date; }else{ echo set_value('sale_date');}  ?>" <?php if(!empty($sale_date)){ echo 'required';}?>> -->
-                                                </div> 
-                                                <?php if($sale_date)
-                                                {
-                                                    ?>
-                                                    <div class="pt-2 ps-4 position-relative">
-                                                        <input class="form-control"  name="sale_date" readonly  id="flexCheckChecked" value="<?php echo $row->sale_date; ?>">
-                                                </div> 
-                                                    <?php
-                                                }
-                                                else
-                                                {
-                                                    ?>                                       
+                                                </div>                                        
                                                 <div id="contact_sale_date" style="width: 346px;padding-left: 24px;" 
              class="input-group date" 
              data-date-format="mm-dd-yyyy"> 
@@ -441,7 +433,6 @@ $expiry_date = $expiry_date_exp[2].','.($expiry_date_exp[0]-1).','.$expiry_date_
                 <i class="glyphicon glyphicon-calendar"></i> 
             </span> 
         </div> 
-        <?php } ?>
                                             </div>
                                         </div>
                                       
@@ -450,7 +441,7 @@ $expiry_date = $expiry_date_exp[2].','.($expiry_date_exp[0]-1).','.$expiry_date_
                                                 <div class="pt-2 ps-4 position-relative  ">    
                                                     <label for="flexCheckChecked" class="form-label mx-3">Email Opt Out</label> 
                                                 </div>
-                                                <div class="px-4 position-relative" style="margin-left: 13px;">
+                                                <div class="ps-5 pe-4 position-relative">
                                                     <input class="form-check-input" type="checkbox" id="flexCheckChecked" name="email_opt_out" value="1" <?php if($email_opt_out==1){ echo 'checked';}?>   <?= (set_value('email_opt_out') == 1) ? 'checked' : ''; ?>>
                                                 </div>                                        
                                             </div>   
@@ -458,7 +449,22 @@ $expiry_date = $expiry_date_exp[2].','.($expiry_date_exp[0]-1).','.$expiry_date_
                                     </div>
                                     <div class="row mb-3">
                                         
-                                      
+                                        <!-- <div class="col-md-6">
+                                            <div class="d-flex mb-2">
+                                                <div class="pt-2 ps-4 position-relative">
+                                                    <label for="validationTooltip04" class="form-label">AMC Plan</label>
+                                                </div>                                        
+                                                <div class="px-4 position-relative">
+                                                    <select class="form-select form-control" id="validationTooltip04" aria-label="Default select example" name="amc_plan" >
+                                                        <option value="">Select AMC Plan</option>
+                                                        <?php if(!empty($plan_id)){
+                                                        foreach($plan_id as $plan_id1){ ?>
+                                                        <option value="<?= $plan_id1->id?>" <?php if($plan_id1->id==$amc_plan){ echo 'selected';} ?> <?=(set_value('amc_plan') == $plan_id1->id) ? 'selected' : '';?>><?= $plan_id1->title?></option>
+                                                        <?php }}?>
+                                                    </select>
+                                                </div> 
+                                            </div>
+                                        </div> -->
                                         <div class="col-md-6">
                                             <div class="d-flex mb-2">
                                                 <div class="pt-2 ps-4 position-relative">
@@ -475,6 +481,10 @@ $expiry_date = $expiry_date_exp[2].','.($expiry_date_exp[0]-1).','.$expiry_date_
             </span> 
         </div> 
                                             </div>
+                                        </div>
+
+                                        <div class="col-12 py-5">
+                                            <h3>Description</h3>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="d-flex mb-2">

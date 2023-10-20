@@ -316,14 +316,26 @@
     /* #myModal {
         height: 97vh
     } */
-
-    #myModal .modal-fullscreen {
-        width: 68vw;
+    /* .modal-fullscreen .modal-body{
+        height: auto !important
+    } */
+    .modal-fullscreen {
+        /* width: 68vw;
         max-width: none;
-        height: 96.5vh;
+        height: 97vh;
         margin: 0;
         left: 32%;
-        right: 0;
+        right: 0; */
+        background: var(--bg_white);
+    height: calc(100% - 28px);
+    width: 935px;
+    position: fixed;
+    transition: .5s ease-in-out;
+    z-index: 32;
+    box-shadow: 0 6px 12px 0 rgba(0,0,0,.4);
+    top: 0;
+    right: 0;
+    min-width: 70vw;
     }
 
     .modal-footer {
@@ -421,7 +433,7 @@
         position: absolute;
         right: 15px;
         text-align: right;
-        left: 0;
+        /* left: 0; */
     }
 
     .send-msg-top {
@@ -648,6 +660,12 @@
 
     .accordion-item {
         width: 100%
+    }
+    .modal-mail-details .modal-header {
+        padding: 7px 17px !important;
+    }
+    .modal-mail-details .modal-header .btn-close{
+       margin-top:-17px !important;
     }
 </style>
 <!-- header end  -->
@@ -1115,7 +1133,7 @@
     </div>
 </div>
 <!-- email detail  -->
-<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade modal-mail-details" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">

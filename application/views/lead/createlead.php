@@ -109,7 +109,7 @@ if(!empty($exist_lead_detail))
                                 <div class="col-md-6">
                                     <div class="d-flex">
                                             <div class="pt-2 ps-4 position-relative">
-                                                <label for="validationTooltip01" class="form-label">First Name <span class="text-danger">*</span></label>
+                                                <label for="validationTooltip01" class="form-label">First Name<span class="text-danger">*</span></label>
                                             </div>
                                             <div class="px-4 position-relative">
                                                 <input type="text" name="first_name" value="<?php if(!empty($first_name)){echo $first_name;}else{ echo set_value('first_name');} ?>" class="form-control" id="validationTooltip01" onkeydown="return /[a-z ]/i.test(event.key)" <?php if(!empty($first_name)){ echo 'required';}?>>
@@ -190,6 +190,9 @@ if(!empty($exist_lead_detail))
                                 </div>
                             </div>
                             <div class="row mb-3">
+                            <div class="col-12 py-5">
+                                            <h3>Description</h3>
+                                        </div>
                                 <div class="col-md-6">
                                     <div class="d-flex">
                                         <div class="pt-2 ps-4 position-relative">
