@@ -61,10 +61,10 @@ foreach ($result as $row) {
          background: #b41e45;
          color: #fff;
          border: 0;
-         width: 35px;
-         height: 34px;
-         position: relative;
-         left: -28px;
+    width: 35px;
+    height: 33px;
+    position: relative;
+    left: -24px;
          top: 1px;
          border-radius: 0px 10px 10px 0px;
       }
@@ -73,7 +73,7 @@ foreach ($result as $row) {
          box-shadow: none;
       }
       .order-id {
-         padding: 60px 0;
+         padding: 30px 0;
       }
       hr {
          margin: 2rem 0;
@@ -211,7 +211,7 @@ foreach ($result as $row) {
          border-radius: 10px;
       }
       .terms {
-         padding: 60px 0;
+         padding: 30px 0;
          background: #f3e9ed;
          border-top: 1px solid #e3e3e3;
          border-bottom: 1px solid #e3e3e3;
@@ -222,7 +222,7 @@ foreach ($result as $row) {
          margin-bottom: 5px;
       }
       .additional {
-         padding: 60px 0;
+         padding: 30px 0 0;
       }
       .button_btn {
          background: #e9e9e9;
@@ -239,7 +239,19 @@ foreach ($result as $row) {
          padding: 20px 0;
          box-shadow: 0px 0px 11px 0px #c7c7c7;
       }
-      
+      .selectize-control.single .selectize-input, .selectize-control.single .selectize-input input{
+         width: 100% !important;
+      }
+      .form-control.selectize-control{
+         width: 100% !important;
+      }
+      .selectize-control.single .selectize-input.input-active{
+         width:408px !important
+
+      }
+      .selectize-control.single .selectize-input.input-active input{
+         width: 100% !important'
+      }
    </style>
 <body>
    <?php echo form_open($formAction); ?>
@@ -260,7 +272,7 @@ foreach ($result as $row) {
                    </div>
               
             </div>
-         <div class="row pt-3 exist_customer_invoice">
+            <div class="row pt-3 exist_customer_invoice">
                <div class="col-md-2">
                   <label for="cardcc-number" class="form-label">Customer Name*</label>
                </div>
@@ -331,7 +343,7 @@ foreach ($result as $row) {
                                                                                                                                                          echo set_value('date');
                                                                                                                                                       }  ?>" required> -->
 <div class="input-group">
-                                            <div id="invoice_date" style="width: 346px;padding-left: 24px;" 
+                                            <div id="invoice_date" style="width: 346px;" 
              class="input-group date" 
              data-date-format="mm-dd-yyyy"> 
             <input class="form-control" 
@@ -461,12 +473,12 @@ foreach ($result as $row) {
             </div>
             <div class="row">
                <div class="col-md-5">
-                  <span class="add-row-btn mb-5 add2"><i class="fa-solid fa-circle-plus "></i>Add Product</span> <span class="add-row-btn mb-5 remove2"><i class="fa-solid fa-circle-minus"></i>Remove Product</span>
+                  <span class="add-row-btn mb-5 add2"><i class="fa-solid fa-circle-plus "></i>Add Product</span> <span class="add-row-btn mb-5 remove2"><i class="fa-solid fa-circle-minus"></i> Remove Product</span>
                   <div class="mt-5">
-                     <div><label for="">Customer Notes</label></div>
+                     <div class="py-3"><label for="">Customer Notes</label></div>
                      <textarea class="form-control" name="custom_notes" id="custom_notes_condition" cols="2" rows="3" required>All the payments made for repair and service can only be partially refunded within 30 days. Payments made against any software purchases cannot be refunded once software is installed on the customer's device. Products once sold cannot be returned. Exchange only in 3 days from Invoice Date.</textarea>
                      <input type="hidden" id="fixed_custom_notes" value="All the payments made for repair and service can only be partially refunded within 30 days. Payments made against any software purchases cannot be refunded once software is installed on the customer's device. Products once sold cannot be returned. Exchange only in 3 days from Invoice Date."/>
-                     <div class="form-check">
+                     <div class="form-check  py-2">
                         <input class="form-check-input" type="checkbox" value="1" name="custom_notes_checked" id="custom_notes_checked">
                         <label class="form-check-label" for="future">
                            Use this in future for all invoices for this customer.
@@ -594,7 +606,7 @@ foreach ($result as $row) {
                </span>
             </div>
          </div>
-         <hr>
+         <!-- <hr> -->
          <div class="row">
             <div class="col-md-12">
                <p class="clearfix">
@@ -654,10 +666,12 @@ foreach ($result as $row) {
                <!-- <a href="#" class="btn btn_save"> Save as Draft</a>
                   <a href="#" class="btn btn_save"> Save as Send</a>
                   <a href="#" class="btn button_btn clear_check"> Cancel</a> -->
-               <input type="submit" class="btn btn_save <?php echo $class; ?>" value="Save As Draft"  name="save_draft">
-               <input type="submit" class="btn btn_save" value="<?php echo $buttonName; ?>" name="save">
+               <div class="btn-group">
+               <input type="submit" class="me-2 btn btn_save <?php echo $class; ?>" value="Save As Draft"  name="save_draft">
+               <input type="submit" class="me-2 btn btn_save" value="<?php echo $buttonName; ?>" name="save">
                <div class="btn_list"></div>
                <a href="<?php echo base_url(); ?>list-invoice" class="btn button_btn">Cancel </a>
+               </div>
             </div>
             <div class="col-md-6 text-end">
                <p class="m-0"><span><b>Total Amount</b>: </span>$<span id="total_amount"></span></p>

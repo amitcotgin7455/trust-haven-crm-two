@@ -354,4 +354,11 @@ class Login extends CI_Controller {
 			return false;
 		}
 	  }
+
+	  public function signin()
+	{	
+		$userActivity = $this->checkUserActivity();
+		$data['title']="Trust Haven Crm Login Page";
+		$this->load->view('login/login-new',$data);
+	}
 }
